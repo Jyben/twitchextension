@@ -5,17 +5,22 @@ setInterval(function(){
 	TwitchAlert.isOnAir(updateStatus);
 }, TwitchAlert.tickRate);
 
-function updateStatus(isOnAir)
+function updateStatus(isOnAir, context)
 {
 	if (isOnAir && !isNotified)
 	{
-		TwitchAlert.pushNotification();
+		TwitchAlert.pushNotification(context.title, TwitchAlert.message);
 		TwitchAlert.setIcon("on");
 	}
 	else if (!isOnAir)
 	{
 		TwitchAlert.setIcon("off");
 	}
-		
+
+	if (isOnAir)
+	{
+		// Save data
+	}
+
 	isNotified = isOnAir;
 }
