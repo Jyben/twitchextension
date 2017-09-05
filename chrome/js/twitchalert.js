@@ -4,7 +4,7 @@ var TwitchAlert = function()
 	this.iconStatusName = "line.png";
 	this.status = null;
 	this.message = "Clique-ici pour rejoindre le live";
-	this.apiTwitchUrl = "https://api.twitch.tv/kraken/streams/lestream?client_id=nrnediurh6n5oiqqeyfimlfjfpcwb5";
+	this.apiTwitchUrl = "https://api.twitch.tv/kraken/streams/sratuke?client_id=nrnediurh6n5oiqqeyfimlfjfpcwb5";
 	this.tickRate = 5000;
 	this.viewers = 0;
 	this.title = null;
@@ -12,18 +12,18 @@ var TwitchAlert = function()
 
 TwitchAlert.prototype.updateExtensionPage = function()
 {
-	var elm  = document.getElementById("info");
+	this.isOnAir(function(isOnAir, context) {
+		if (isOnAir) {
+			document.getElementById("title").innerHTML = context.title;
+			document.getElementById("game").innerHTML = context.game;
+			document.getElementById("viewers").innerHTML = context.viewers;
+		}
+		else {
+			document.getElementById("body").innerHTML = "";
+			document.getElementById("offline").innerHTML = "Sratuke n'est pas live :-("
+		}
+	});
 
-	if (this.isOnAir())
-	{
-		elm.style.color = "red";
-		elm.innerHTML = "Sratuke n'est pas en live actuellement";
-	}
-	else
-	{
-		elm.style.color = "green";
-		elm.innerHTML = "Sratuke est en live !" ;
-	}
 }
 
 TwitchAlert.prototype.isOnAir = function(callback)
@@ -83,16 +83,4 @@ TwitchAlert.prototype.pushNotification = function(title, message)
 	});
 
 	chrome.notifications.onClicked.addListener(this.openTab);
-}
-
-TwitchAlert.prototype.saveData = function (key, data) {
-	chrome.storage.local.set({key: data}, function() {
-		console.log('settings saved');
-	});
-}
-
-TwitchAlert.prototype.getData = function (key) {
-	chrome.storage.local.get(key.toString(), function(result){
-        console.log('result: ', result.key);
-    });
 }
