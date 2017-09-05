@@ -1,0 +1,67 @@
+body {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  width: 400px;
+  margin: 1px;
+}
+
+h2 {
+  margin-top: 4px;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  padding: 0;
+  width: 400px;
+}
+
+.imgHeader {
+  outline: 1px solid #000000;
+}
+
+.title {
+  margin-top: 4px;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.viewers {
+  float: right;
+  color: #fc3636;
+  line-height: 0;
+  margin-top: 6px;
+}
+
+.game {
+  float: left;
+  color: #6441a4;
+  line-height: 0;
+  margin-top: 8px;
+}
+
+.imgGame {
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 11px;
+}
+
+.imgViewers {
+  float: right;
+  margin-right: 5px;
+}
+
+.twitter {
+  color: #1da1f2;
+}
+
+.facebook {
+  color: #4267b2;
+}
+
+.twitch {
+  color: #4b367c;
+}
