@@ -20,7 +20,7 @@ TwitchAlert.prototype.updateExtensionPage = function()
 		}
 		else {
 			document.getElementById("body").innerHTML = "";
-			document.getElementById("offline").innerHTML = "Sratuke n'est pas live :-("
+			document.getElementById("offline").innerHTML = "Sratuke n'est pas en live :-("
 		}
 	});
 
@@ -47,9 +47,7 @@ TwitchAlert.prototype.isOnAir = function(callback)
 				this.game = streamData.game;
 				this.title = channelData.status;
 			}
-
 			callback(data["stream"] !== null, this);
-
 		}
 	}
 
