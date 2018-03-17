@@ -5,7 +5,7 @@ var TwitchAlert = function()
 	this.status = null;
 	this.message = "🔴 SRATUKE LIVE";
 	this.apiTwitchUrl = "https://api.twitch.tv/kraken/streams/sratuke?client_id=nrnediurh6n5oiqqeyfimlfjfpcwb5";
-	this.tickRate = 5000;
+	this.tickRate = 30000;
 	this.viewers = 0;
 	this.title = null;
 	this.liveUrl = "http://twitch.com/sratuke";
