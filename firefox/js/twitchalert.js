@@ -3,9 +3,9 @@ var TwitchAlert = function()
 	this.imgPath = "img/";
 	this.iconStatusName = "line.png";
 	this.status = null;
-	this.message = "Clique-ici pour rejoindre le live";
-	this.apiTwitchUrl = "https://api.twitch.tv/kraken/streams/sardochelol?client_id=nrnediurh6n5oiqqeyfimlfjfpcwb5";
-	this.tickRate = 5000;
+	this.message = "🔴 SRATUKE LIVE";
+	this.apiTwitchUrl = "https://api.twitch.tv/kraken/streams/sratuke?client_id=nrnediurh6n5oiqqeyfimlfjfpcwb5";
+	this.tickRate = 30000;
 	this.viewers = 0;
 	this.title = null;
 }
@@ -13,17 +13,18 @@ var TwitchAlert = function()
 TwitchAlert.prototype.updateExtensionPage = function()
 {
 	this.isOnAir(function(isOnAir, context) {
-		if (isOnAir) {
-			document.getElementById("title").innerHTML = context.title;
-			document.getElementById("game").innerHTML = context.game;
-			document.getElementById("viewers").innerHTML = context.viewers;
+		if (isOnAir) 
+		{
+			document.getElementById("title").textContent = context.title;
+			document.getElementById("game").textContent = context.game;
+			document.getElementById("viewers").textContent = context.viewers;
 		}
-		else {
-			document.getElementById("body").innerHTML = "";
-			document.getElementById("offline").innerHTML = "Sratuke n'est pas en live :-("
+		else 
+		{
+			document.getElementById("body").textContent = "";
+			document.getElementById("offline").textContent = "Sratuke n'est pas en live :-(";
 		}
 	});
-
 }
 
 TwitchAlert.prototype.isOnAir = function(callback)
@@ -40,7 +41,8 @@ TwitchAlert.prototype.isOnAir = function(callback)
 		var data = JSON.parse(req.responseText);
 		if (callback && typeof(callback) === "function")
 		{
-			if (data["stream"] !== null) {
+			if (data["stream"] !== null) 
+			{
 				streamData = data["stream"];
 				channelData = streamData["channel"];
 				this.viewers = streamData.viewers;
@@ -57,28 +59,26 @@ TwitchAlert.prototype.isOnAir = function(callback)
 
 TwitchAlert.prototype.setIcon = function(status)
 {
-	browser.browserAction.setIcon({path:this.imgPath.concat(status).concat(this.iconStatusName)});
+	chrome.browserAction.setIcon({path:this.imgPath.concat(status).concat(this.iconStatusName)});
 }
 
 TwitchAlert.prototype.openTab = function(notificationId)
 {
-	var liveUrl = "http://twitch.com/sratuke";
-
-	browser.tabs.create({
-		url : liveUrl
+	chrome.tabs.create({
+		url : this.liveUrl
 	});
 }
 
 TwitchAlert.prototype.pushNotification = function(title, message)
 {
-	browser.browserAction.setIcon({path:this.imgPath.concat("on").concat(this.iconStatusName)});
-	browser.notifications.create({
+	chrome.browserAction.setIcon({path:this.imgPath.concat("on").concat(this.iconStatusName)});
+	chrome.notifications.create({
 		type: "basic",
 		iconUrl: this.imgPath.concat("on").concat(this.iconStatusName),
 		title: title,
 		message: message,
-		isClickable: true
+		isClickable: false
 	});
 
-	browser.notifications.onClicked.addListener(this.openTab);
+	//chrome.notifications.onClicked.addListener(this.openTab);
 }
