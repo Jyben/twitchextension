@@ -9,20 +9,21 @@ var TwitchAlert = function()
 	this.viewers = 0;
 	this.title = null;
 	this.liveUrl = "http://twitch.com/sratuke";
-	this.offlineMsg = "Sratuke n'est pas en live :-(";
 }
 
 TwitchAlert.prototype.updateExtensionPage = function()
 {
-	this.isOnAir(function(isOnAir, context) {
-		if (isOnAir) {
-			document.getElementById("title").innerHTML = context.title;
-			document.getElementById("game").innerHTML = context.game;
-			document.getElementById("viewers").innerHTML = context.viewers;
+	this.isOnAir(function(isOnAir, context) 
+	{
+		if (isOnAir) 
+		{
+			document.getElementById("title").textContent = context.title;
+			document.getElementById("game").textContent = context.game;
+			document.getElementById("viewers").textContent = context.viewers;
 		}
 		else {
-			document.getElementById("body").innerHTML = "";
-			document.getElementById("offline").innerHTML = context.offlineMsg;
+			document.getElementById("body").textContent = "";
+			document.getElementById("offline").textContent = "Sratuke n'est pas en live :-(";
 		}
 	});
 
