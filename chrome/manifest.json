@@ -2,7 +2,7 @@
  "manifest_version": 2,
  "name": "Twitch Live Sratuke",
  "description": "Vous notifie lorsque Sratuke est en live",
- "version": "1.0.4",
+ "version": "1.0.5",
  "browser_action": {
   "default_popup": "index.html"
  },
