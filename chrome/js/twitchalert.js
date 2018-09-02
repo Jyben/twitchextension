@@ -9,38 +9,60 @@ var TwitchAlert = function()
 	this.viewers = 0;
 	this.title = null;
 	this.liveUrl = "http://twitch.com/sratuke";
+	this.apiBotUrl = "https://twitchbot-api.azurewebsites.net/v1/";
 }
 
 TwitchAlert.prototype.updateExtensionPage = function()
 {
-	this.isOnAir(function(isOnAir, context) 
+	this.isOnAir(function(isOnAir, context)
 	{
-		if (isOnAir) 
+		if (isOnAir)
 		{
 			document.getElementById("title").textContent = context.title;
 			document.getElementById("game").textContent = context.game;
 			document.getElementById("viewers").textContent = context.viewers;
+			document.getElementById("imgGame").style.visibility = 'visible';
+			document.getElementById("imgViewers").style.visibility = 'visible';
 		}
 		else {
-			document.getElementById("body").textContent = "";
+			document.getElementById("imgGame").style.visibility = 'hidden';
+			document.getElementById("imgViewers").style.visibility = 'hidden';
 			document.getElementById("offline").textContent = "Sratuke n'est pas en live :-(";
 		}
 	});
 
+	this.getRanking(function(users)
+	{
+		users.forEach((user) => {
+			if (user.points > 0) {
+				let rank = document.createElement("li");
+				let text = document.createTextNode(user.name.concat(" - ").concat(user.points).concat(" points"));
+				rank.appendChild(text);
+				document.getElementById("ranking").appendChild(rank);
+			}
+		})
+	});
+
+	this.getNews(function(extension)
+	{
+		document.getElementById("newsName").textContent = extension.newsName;
+		document.getElementById("newsText").textContent = extension.newsText;
+	});
 }
 
 TwitchAlert.prototype.isOnAir = function(callback)
 {
-	var req = new XMLHttpRequest();
-	var streamData = null;
-	var channelData = null;
+	let req = new XMLHttpRequest();
+	let streamData = null;
+	let channelData = null;
 
 	req.onreadystatechange = function ()
 	{
 		if (req.readyState != 4 || req.status != 200)
-			return;
+		return;
 
-		var data = JSON.parse(req.responseText);
+		let data = JSON.parse(req.responseText);
+
 		if (callback && typeof(callback) === "function")
 		{
 			if (data["stream"] !== null) {
@@ -80,6 +102,65 @@ TwitchAlert.prototype.pushNotification = function(title, message)
 		message: message,
 		isClickable: false
 	});
+}
 
-	//chrome.notifications.onClicked.addListener(this.openTab);
+TwitchAlert.prototype.getRanking = function(callback)
+{
+	let req = new XMLHttpRequest();
+
+	req.onreadystatechange = function ()
+	{
+		if (req.readyState != 4 || req.status != 200)
+		return;
+
+		let users = JSON.parse(req.responseText);
+
+		if (callback && typeof(callback) === "function")
+		{
+			callback(users);
+		}
+	}
+
+	req.open("GET", this.apiBotUrl.concat("viewers"), true);
+	req.send();
+}
+
+TwitchAlert.prototype.getNews = function(callback)
+{
+	let req = new XMLHttpRequest();
+
+	req.onreadystatechange = function ()
+	{
+		if (req.readyState != 4 || req.status != 200)
+		return;
+
+		let extension = JSON.parse(req.responseText);
+
+		if (callback && typeof(callback) === "function")
+		{
+			callback(extension[0]);
+		}
+	}
+
+	req.open("GET", this.apiBotUrl.concat("extension").concat("/sratuke"), true);
+	req.send();
+}
+
+TwitchAlert.prototype.search = function() {
+	let input, filter, ul, li, a, i;
+
+	input = document.getElementById("search");
+	filter = input.value.toUpperCase();
+	ol = document.getElementById("ranking");
+	li = ol.getElementsByTagName("li");
+
+	for (i = 0; i < li.length; i++) {
+		a = li[i].innerHTML;
+		
+		if (a.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		} else {
+			li[i].style.display = "none";
+		}
+	}
 }

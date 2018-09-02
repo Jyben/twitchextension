@@ -1,7 +1,7 @@
 body {
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   width: 400px;
-  margin: 5px;
+  margin: 0px;
 }
 
 h2 {
@@ -24,7 +24,6 @@ hr {
 }
 
 .title {
-  margin-top: 4px;
   margin-bottom: 6px;
   font-size: 16px;
 }
@@ -64,4 +63,91 @@ hr {
 
 .twitch {
   color: #4b367c;
+}
+
+ol.ranking {
+    list-style-type: numeric;
+    overflow: auto;
+    font-size: 13px;
+}
+
+.ranking {
+  height: 250px;
+}
+
+.offline {
+  text-align: center;
+}
+
+
+ul.socialIcons {
+  padding: 0;
+  text-align: center;
+}
+
+.socialIcons li {
+  background: yellow;
+  list-style: none;
+  display: inline-block;
+  border-radius: 2em;
+  overflow:hidden;
+}
+
+.socialIcons li a {
+  display: block;
+  padding: .1em;
+  max-width: 1.5em;
+  min-width: 1.5em;
+  height: 1.5em;
+  white-space: nowrap;
+  line-height: 1.5em;
+  transition:.5s;
+  text-decoration: none;
+  font-family: arial;
+  color: #fff;
+}
+
+.socialIcons li i {
+  margin-right:.5em;
+}
+
+.socialIcons li:hover a {
+  max-width:200px;
+  padding-right:1em;
+}
+
+.socialIcons .facebook {
+  background: #3b5998;
+}
+
+.socialIcons .twitter {
+  background: #00aced;
+}
+
+.socialIcons .instagram {
+  background: #cd486b;
+}
+.socialIcons .youtube {
+  background: #c92228;
+}
+
+.socialIcons .steam {
+  background: #666666;
+}
+
+.socialIcons .twitch {
+  background: #4b367c;
+}
+
+.socialIcons .discord {
+  background: #7289DA;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.annonce {
+  color: red;
+  font-weight: bold;
+}
+
+.annonce {
+  text-align: justify;
 }
