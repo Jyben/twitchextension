@@ -121,7 +121,7 @@ TwitchAlert.prototype.getRanking = function(callback)
 		}
 	}
 
-	req.open("GET", this.apiBotUrl.concat("viewers"), true);
+	req.open("GET", this.apiBotUrl.concat("viewers").concat("/sratuke"), true);
 	req.send();
 }
 
