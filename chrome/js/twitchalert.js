@@ -8,7 +8,7 @@ var TwitchAlert = function () {
 	this.viewers = 0;
 	this.title = null;
 	this.liveUrl = "http://twitch.com/sratuke";
-	this.apiBotUrl = "https://twitchbot-api.azurewebsites.net/v1/";
+	this.apiBotUrl = "https://sratuke-api.azurewebsites.net/v1/";
 }
 
 TwitchAlert.prototype.updateExtensionPage = function () {
